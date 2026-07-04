@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>Inscription gratuite — RadarJob</title>
-<meta name="description" content="Inscrivez-vous gratuitement à RadarJob : décrivez le poste recherché, RadarJob scanne JobUp et Jobs.ch et vous envoie les offres faites pour vous avec une lettre de motivation déjà rédigée.">
+<title>Inscription — RadarJob</title>
+<meta name="description" content="Inscrivez-vous à RadarJob : décrivez le poste recherché, RadarJob scanne JobUp et Jobs.ch et vous envoie les offres faites pour vous avec une lettre de motivation déjà rédigée.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="https://radarjob.ch/inscription.html">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%230E0F11'/%3E%3Ccircle%20cx='16'%20cy='16'%20r='9'%20fill='none'%20stroke='%23ffffff'%20stroke-width='2'%20opacity='.35'/%3E%3Ccircle%20cx='16'%20cy='16'%20r='5'%20fill='none'%20stroke='%23ffffff'%20stroke-width='2'%20opacity='.6'/%3E%3Ccircle%20cx='16'%20cy='16'%20r='3'%20fill='%23E1251B'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="RadarJob">
-<meta property="og:title" content="Inscription gratuite — RadarJob">
-<meta property="og:description" content="Décrivez le poste recherché, RadarJob s'occupe du reste. 2 mois offerts, sans engagement.">
+<meta property="og:title" content="Inscription — RadarJob">
+<meta property="og:description" content="Décrivez le poste recherché, RadarJob s'occupe du reste. Sans engagement, résiliable à tout moment.">
 <meta property="og:url" content="https://radarjob.ch/inscription.html">
 <meta property="og:image" content="https://radarjob.ch/og.png">
 <meta property="og:image:width" content="1200">
@@ -143,10 +143,10 @@
 
 <section class="intro">
   <div class="wrap">
-    <span class="eyebrow"><span class="swiss"></span> Inscription gratuite · Suisse</span>
+    <span class="eyebrow"><span class="swiss"></span> Inscription · Suisse</span>
     <h1>Lancez votre <span class="brand-job">recherche</span> en 2 minutes.</h1>
     <p>Décrivez le poste qui vous intéresse. Radar<span class="brand-job">Job</span> scanne JobUp et Jobs.ch en continu et vous envoie les offres faites pour vous, avec une lettre de motivation déjà rédigée.</p>
-    <div class="offer">🎁 Offre de lancement · <b>2 mois offerts</b></div>
+    <div class="offer">Standard · <b>39 CHF/mois</b> · sans engagement</div>
     <div class="microtrust"><span>Sans engagement</span><span>·</span><span>Conçu en Suisse</span><span>·</span><span>Annulation à tout moment</span></div>
   </div>
 </section>
@@ -233,7 +233,7 @@
       </div>
 
       <div class="submit-row">
-        <button type="submit" class="btn btn-primary" id="submitBtn">Lancer ma recherche gratuitement</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Continuer</button>
         <p class="form-msg" id="formMsg" hidden></p>
       </div>
     </form>
@@ -242,10 +242,12 @@
       <div class="tick">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1a8a4f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
-      <h2>Inscription reçue !</h2>
-      <p>Merci, votre demande est bien arrivée. Radar<span class="brand-job">Job</span> prépare votre recherche et vous recevrez vos premières offres très bientôt par email.</p>
-      <p>Pensez à vérifier vos spams les premiers jours, et à ajouter <span class="mono">contact@radarjob.ch</span> à vos contacts.</p>
-      <a class="btn btn-primary back" href="/">Retour à l'accueil</a>
+      <h2>Dernière étape : activez votre radar</h2>
+      <p>Vos critères sont bien enregistrés. Pour lancer votre recherche, activez votre abonnement <b>Standard — 39 CHF/mois</b>. Sans engagement, résiliable à tout moment.</p>
+      <a class="btn btn-primary" id="payBtn" href="#" style="margin-top:4px">Activer mon abonnement — 39 CHF/mois</a>
+      <p style="margin-top:12px;font-size:12.5px;color:var(--muted)">🔒 Paiement sécurisé par Stripe · carte ou TWINT · résiliable en 1 clic</p>
+      <p style="margin-top:20px">Après le paiement, Radar<span class="brand-job">Job</span> prépare votre recherche. Pensez à ajouter <span class="mono">contact@radarjob.ch</span> à vos contacts et à vérifier vos spams les premiers jours.</p>
+      <a class="back" href="/" style="display:inline-block;margin-top:4px;color:var(--muted);text-decoration:underline;font-size:13.5px">Retour à l'accueil</a>
     </div>
   </div>
 </div>
@@ -264,6 +266,8 @@
 <script>
   (function(){
     var ENDPOINT='https://cv.radarjob.ch/api/signup';
+    // Lien de paiement Stripe (abonnement Standard 39 CHF/mois). A REMPLACER par le vrai lien Stripe.
+    var PAY_LINK='https://buy.stripe.com/fZu14hf70bhW04w3CDdUY01';
     var f=document.getElementById('signupForm');
     var btn=document.getElementById('submitBtn');
     var msg=document.getElementById('formMsg');
@@ -321,6 +325,11 @@
       }).then(function(res){
         if(res.ok){
           if(typeof gtag==='function'){ gtag('event','sign_up',{ method:'form', source:data.source }); }
+          var pay=document.getElementById('payBtn');
+          if(pay && PAY_LINK.indexOf('http')===0){
+            pay.href=PAY_LINK+(PAY_LINK.indexOf('?')>-1?'&':'?')+'prefilled_email='+encodeURIComponent(data.email);
+          }
+          if(pay){ pay.addEventListener('click',function(){ if(typeof gtag==='function'){ gtag('event','begin_checkout',{ value:39, currency:'CHF' }); } }); }
           f.style.display='none';
           done.classList.add('show');
           window.scrollTo({top:0,behavior:'smooth'});
