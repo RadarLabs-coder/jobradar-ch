@@ -143,16 +143,23 @@
 
 <section class="intro">
   <div class="wrap">
-    <span class="eyebrow"><span class="swiss"></span> Inscription · Suisse</span>
-    <h1>Lancez votre <span class="brand-job">recherche</span> en 2 minutes.</h1>
-    <p>Décrivez le poste qui vous intéresse. Radar<span class="brand-job">Job</span> scanne JobUp et Jobs.ch en continu et vous envoie les offres faites pour vous, avec une lettre de motivation déjà rédigée.</p>
-    <div class="offer">Standard · <b>39 CHF/mois</b> · sans engagement</div>
-    <div class="microtrust"><span>Sans engagement</span><span>·</span><span>Conçu en Suisse</span><span>·</span><span>Annulation à tout moment</span></div>
+    <span class="eyebrow"><span class="swiss"></span> Abonnement actif · Suisse</span>
+    <h1>Bienvenue ! <span class="brand-job">Dernière étape.</span></h1>
+    <p>Merci pour votre abonnement 🎉 Décrivez le poste qui vous intéresse : Radar<span class="brand-job">Job</span> scanne JobUp et Jobs.ch en continu et vous envoie les offres faites pour vous, avec une lettre de motivation déjà rédigée.</p>
+    <div class="microtrust"><span>Prêt en 2 minutes</span><span>·</span><span>Conçu en Suisse</span><span>·</span><span>Résiliable à tout moment</span></div>
   </div>
 </section>
 
+<noscript><style>#formCard{display:block!important}#gate{display:none!important}</style></noscript>
 <div class="wrap">
-  <div class="card">
+  <div class="card" id="gate" hidden style="text-align:center">
+    <div style="font-size:34px;line-height:1;margin-bottom:8px">🔒</div>
+    <h2 style="font-family:'Archivo';font-weight:800;font-size:22px;margin:0 0 8px">Cette étape est réservée aux abonnés</h2>
+    <p style="color:var(--muted);max-width:430px;margin:0 auto 20px">Pour créer votre radar et recevoir vos offres, abonnez-vous d'abord. Vous reviendrez ensuite ici pour renseigner vos critères.</p>
+    <a class="btn btn-primary" href="https://buy.stripe.com/fZu14hf70bhW04w3CDdUY01">S'abonner — 39 CHF/mois</a>
+    <p style="margin-top:12px;font-size:12.5px;color:var(--muted)">Sans engagement · résiliable à tout moment</p>
+  </div>
+  <div class="card" id="formCard" hidden>
     <form id="signupForm" novalidate>
       <div class="row2">
         <div class="field">
@@ -168,7 +175,7 @@
       <div class="field">
         <label for="email">Email <span class="req">*</span></label>
         <input type="email" id="email" name="email" autocomplete="email" placeholder="vous@email.ch" required>
-        <div class="hint">C'est sur cette adresse que vous recevrez vos offres.</div>
+        <div class="hint">Utilisez le même email que pour votre paiement — c'est là que vous recevrez vos offres.</div>
       </div>
 
       <div class="field">
@@ -233,9 +240,9 @@
       </div>
 
       <div class="submit-row">
-        <button type="submit" class="btn btn-primary" id="submitBtn">Continuer</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Lancer ma recherche</button>
         <p class="form-msg" id="formMsg" hidden></p>
-        <p style="margin-top:12px;text-align:center;font-size:12.5px;color:var(--muted)">En vous inscrivant, vous acceptez nos <a href="/cgv.html" style="color:var(--muted);text-decoration:underline">CGV</a> et notre <a href="/confidentialite.html" style="color:var(--muted);text-decoration:underline">politique de confidentialité</a>.</p>
+        <p style="margin-top:12px;text-align:center;font-size:12.5px;color:var(--muted)">En envoyant vos critères, vous acceptez notre <a href="/confidentialite.html" style="color:var(--muted);text-decoration:underline">politique de confidentialité</a>.</p>
       </div>
     </form>
 
@@ -243,12 +250,10 @@
       <div class="tick">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1a8a4f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
-      <h2>Dernière étape : activez votre radar</h2>
-      <p>Vos critères sont bien enregistrés. Pour lancer votre recherche, activez votre abonnement <b>Standard — 39 CHF/mois</b>. Sans engagement, résiliable à tout moment.</p>
-      <a class="btn btn-primary" id="payBtn" href="#" style="margin-top:4px">Activer mon abonnement — 39 CHF/mois</a>
-      <p style="margin-top:12px;font-size:12.5px;color:var(--muted)">🔒 Paiement sécurisé par Stripe · carte ou TWINT · résiliable en 1 clic</p>
-      <p style="margin-top:20px">Après le paiement, Radar<span class="brand-job">Job</span> prépare votre recherche. Pensez à ajouter <span class="mono">contact@radarjob.ch</span> à vos contacts et à vérifier vos spams les premiers jours.</p>
-      <a class="back" href="/" style="display:inline-block;margin-top:4px;color:var(--muted);text-decoration:underline;font-size:13.5px">Retour à l'accueil</a>
+      <h2>C'est parti ! 🎉</h2>
+      <p>Merci, vos critères sont bien enregistrés. Radar<span class="brand-job">Job</span> prépare votre recherche et vous recevrez vos premières offres très bientôt par email.</p>
+      <p>Pensez à ajouter <span class="mono">contact@radarjob.ch</span> à vos contacts et à vérifier vos spams les premiers jours.</p>
+      <a class="btn btn-primary back" href="/" style="margin-top:8px">Retour à l'accueil</a>
     </div>
   </div>
 </div>
@@ -267,13 +272,18 @@
 <script>
   (function(){
     var ENDPOINT='https://cv.radarjob.ch/api/signup';
-    // Lien de paiement Stripe (abonnement Standard 39 CHF/mois). A REMPLACER par le vrai lien Stripe.
-    var PAY_LINK='https://buy.stripe.com/fZu14hf70bhW04w3CDdUY01';
     var f=document.getElementById('signupForm');
     var btn=document.getElementById('submitBtn');
     var msg=document.getElementById('formMsg');
     var done=document.getElementById('done');
     if(!f) return;
+
+    // Accès réservé aux abonnés : Stripe renvoie ici avec ?session_id=... après paiement.
+    var SESSION_ID=new URLSearchParams(location.search).get('session_id')||'';
+    var gate=document.getElementById('gate');
+    var formCard=document.getElementById('formCard');
+    if(SESSION_ID){ if(formCard) formCard.hidden=false; if(gate) gate.hidden=true; }
+    else { if(gate) gate.hidden=false; if(formCard) formCard.hidden=true; return; }
 
     // Surbrillance des chips (fallback JS si :has non applique dynamiquement)
     [].slice.call(f.querySelectorAll('.chip input')).forEach(function(inp){
@@ -306,7 +316,8 @@
         langues:checkedVals('langues'),
         typePoste:(f.querySelector('input[name="typePoste"]:checked')||{}).value||'',
         source:f.source.value,
-        exclues:(f.exclues.value||'').trim()
+        exclues:(f.exclues.value||'').trim(),
+        session_id:SESSION_ID
       };
 
       if(!data.prenom||!data.nom){ showMsg('Merci d\'indiquer votre prénom et votre nom.'); return; }
@@ -326,11 +337,6 @@
       }).then(function(res){
         if(res.ok){
           if(typeof gtag==='function'){ gtag('event','sign_up',{ method:'form', source:data.source }); }
-          var pay=document.getElementById('payBtn');
-          if(pay && PAY_LINK.indexOf('http')===0){
-            pay.href=PAY_LINK+(PAY_LINK.indexOf('?')>-1?'&':'?')+'prefilled_email='+encodeURIComponent(data.email);
-          }
-          if(pay){ pay.addEventListener('click',function(){ if(typeof gtag==='function'){ gtag('event','begin_checkout',{ value:39, currency:'CHF' }); } }); }
           f.style.display='none';
           done.classList.add('show');
           window.scrollTo({top:0,behavior:'smooth'});
