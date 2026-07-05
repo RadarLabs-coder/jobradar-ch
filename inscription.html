@@ -158,6 +158,7 @@
     <p style="color:var(--muted);max-width:430px;margin:0 auto 20px">Pour créer votre radar et recevoir vos offres, abonnez-vous d'abord. Vous reviendrez ensuite ici pour renseigner vos critères.</p>
     <a class="btn btn-primary" href="https://buy.stripe.com/fZu14hf70bhW04w3CDdUY01">S'abonner — 39 CHF/mois</a>
     <p style="margin-top:12px;font-size:12.5px;color:var(--muted)">Sans engagement · résiliable à tout moment</p>
+    <p style="margin-top:16px;font-size:12.5px"><a href="#" id="alreadyPaid" style="color:var(--muted);text-decoration:underline">Vous venez de payer et voyez cette page ? Continuez ici →</a></p>
   </div>
   <div class="card" id="formCard" hidden>
     <form id="signupForm" novalidate>
@@ -283,8 +284,11 @@
     var SESSION_ID=new URLSearchParams(location.search).get('session_id')||'';
     var gate=document.getElementById('gate');
     var formCard=document.getElementById('formCard');
-    if(SESSION_ID){ if(formCard) formCard.hidden=false; if(gate) gate.hidden=true; }
-    else { if(gate) gate.hidden=false; if(formCard) formCard.hidden=true; return; }
+    function showForm(){ if(formCard) formCard.hidden=false; if(gate) gate.hidden=true; }
+    function showGate(){ if(gate) gate.hidden=false; if(formCard) formCard.hidden=true; }
+    if(SESSION_ID){ showForm(); } else { showGate(); }
+    var alreadyPaid=document.getElementById('alreadyPaid');
+    if(alreadyPaid){ alreadyPaid.addEventListener('click',function(e){ e.preventDefault(); showForm(); window.scrollTo({top:0,behavior:'smooth'}); }); }
 
     // Surbrillance des chips (fallback JS si :has non applique dynamiquement)
     [].slice.call(f.querySelectorAll('.chip input')).forEach(function(inp){
